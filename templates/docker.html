@@ -2,8 +2,12 @@
 <html>
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
 <body>
-<title>Hello from Flask</title>
+<title>Docker Cluster</title>
 <p><a href="{{ url_for('.login') }}">log in</a></p>
+<form action="/docker" method="post">
+  <input type="text" name="search"></input>
+  <input type="submit" value="Search"></input>
+</form>
 {% if name %}
 {% for item in  name %}
 <h1>{{ item }}</h1>

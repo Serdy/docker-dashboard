@@ -61,7 +61,42 @@ def hello(name=None):
 
 @app.route('/docker', methods=["POST", "GET"])
 def docker(name=None):
-	return render_template('docker.html', dockers=dockers.docker_name_up(), test=request.args.get('folder'))
+    if request.method == 'POST':
+        search = request.form['search']
+        return render_template('docker.html', dockers=dockers.search_docker(dockers.docker_name_up(), search), test=request.args.get('folder'))
+    else: 
+        return render_template('docker.html', dockers=dockers.docker_name_up(), test=request.args.get('folder'))
+
+#######################################
+#######################################
+import sqlite3
+from flask import g
+
+DATABASE = 'database.db'
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = connect_to_database()
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+#######################################
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+
+
+
+
+
+
+
+
+
+
+

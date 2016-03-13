@@ -1,7 +1,8 @@
 from docker import Client
 
-def docker_name_up():
+def docker_name_up(*args):
 	docker_urls = ['10.134.2.1', '10.134.3.1', '10.134.130.1', '10.134.131.1', '10.134.132.1']
+	# docker_urls = ['10.134.200.1']
 	docker_name = []
 	for docker_url in docker_urls:
 		cli = Client(base_url='tcp://' + docker_url + ':2375')
@@ -14,5 +15,12 @@ def docker_name_up():
 			docker_name.append(dockers)
 	return docker_name
 
-print (docker_name_up())	
+
+def search_docker(docker_name_up, search):
+	docker_name = []
+	for resuts_search in (x for x in docker_name_up if search in x['Name']):
+		docker_name.append(resuts_search)
+	return docker_name
+
+	
 
