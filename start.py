@@ -7,6 +7,8 @@ import s3_sync
 import dockers
 
 app = Flask(__name__)
+# app.config.from_object('config')
+# db = SQLAlchemy(app)
 # app.config.from_envvar('static/settings/docker_conf.cfg')
 UPLOAD_FOLDER = '/tmp/test'
 ALLOWED_EXTENSIONS = set(['txt', 'mp4', 'html', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
