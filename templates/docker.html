@@ -4,10 +4,11 @@
 <body>
 <title>Docker Cluster</title>
 <p><a href="{{ url_for('.login') }}">log in</a></p>
-<form action="/docker" method="post">
-  <input type="text" name="search"></input>
-  <input type="submit" value="Search"></input>
+<form action="/docker">
+    <input type="text" name="search" value="">
+    <input type="submit" value="Search">
 </form>
+
 {% if name %}
 {% for item in  name %}
 <h1>{{ item }}</h1>
