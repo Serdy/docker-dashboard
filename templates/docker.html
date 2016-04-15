@@ -34,14 +34,14 @@
 {% endif %}
 {% if docker['Status'][:2] == "Up" %}
     <tr class="active4">
-      <td>{{ docker['Name'] }}</td>
+      <td><a href="/docker?docker_name={{ docker['Name'] }}">{{ docker['Name'] }}</a></td>
       <td>{{ docker['Status'] }}</td>
       <td>{{ docker['Id'] }}</td> 
       <td>{{ docker['ip'] }}</td> 
     </tr>
 {% else %}
     <tr class="active0">
-      <td>{{ docker['Name'] }}</td>
+      <td><a href="/docker?docker_name={{ docker['Name'] }}">{{ docker['Name'] }}</a></td>
       <td>{{ docker['Status'] }}</td>
       <td>{{ docker['Id'] }}</td> 
       <td>{{ docker['ip'] }}</td> 
