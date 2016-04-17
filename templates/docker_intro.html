@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+<body>
+<title>Docker Cluster</title>
+ <table class="tbl" width="100%">
+  <tr>
+    <th class="titre">Name</th>
+    <td>{{ docker['Name'] }}</td>
+  </tr>
+  <tr>
+    <th class="titre">Status</th>
+    <td>{{ docker['Status'] }}</td>
+  </tr>
+  <tr>
+    <th class="titre">Id:</th>
+    <td>{{ docker['Id'] }}</td>
+  </tr>
+  <tr>
+    <th class="titre">Image</th>
+    <td>{{ docker['Image'] }}</td>
+  </tr>
+  <tr>
+    <th class="titre">Hostname</th>
+    <td>{{ docker['Hostname'] }}</td>
+  </tr>
+  <tr>
+    <th class="titre">Entrypoint</th>
+    <td>{{ docker['Entrypoint'] }}</td>
+  </tr>
+</table>
+
+
+</body>
+</html>
+
+  

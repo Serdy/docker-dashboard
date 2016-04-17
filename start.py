@@ -62,7 +62,15 @@ def hello(name=None):
 def docker(name=None):
     if 'search' in request.args:
         search = request.args['search']
-        return render_template('docker.html', dockers=dockers.search_docker(dockers.docker_name_up(), search), test=request.args.get('folder'))
+        return render_template('docker.html', dockers=dockers.search_docker(dockers.docker_name_up(), search))
+    elif 'intro' in request.args:
+        docker_host = request.args['docker_host']
+        docker_id = request.args['docker_id']
+        return render_template('docker_intro.html', docker=dockers.docker_intro(docker_host, docker_id))
+    elif 'docker_log' in request.args:
+        docker_host = request.args['docker_host']
+        docker_id = request.args['docker_id']
+        return render_template('docker_log.html', dockers=dockers.docker_logs(docker_host, docker_id))
     else: 
         return render_template('docker.html', dockers=dockers.docker_name_up(), test=request.args.get('folder'))
 

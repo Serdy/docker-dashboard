@@ -31,5 +31,27 @@ def search_docker(docker_name_up, search):
 		docker_name.append(resuts_search)
 	return docker_name
 
+def docker_logs(docker_url, containet_id):
+	cli = Client(base_url='tcp://' + docker_url + ':2375')
+	logs = cli.logs(containet_id, stdout=True, stderr=True, stream=False)
+	return logs 
+
+def docker_intro(docker_url, containet_id):
+	cli = Client(base_url='tcp://' + docker_url + ':2375')
+	docker = cli.inspect_container(containet_id)
+	id = (docker['Id'][:12])
+	status =  (docker['State']['Status'])
+	name = (docker['Name'][1:])
+	ip = (docker['NetworkSettings']['Networks']['bridge']['IPAddress'])
+	image = (docker['Config']['Image'])
+	hostname = (docker['Config']['Hostname'])
+	entrypoint = (docker['Config']['Entrypoint']) 
+	intro = { 'Id': id, 'Status': status, 'Name': name, 'ip': ip, 'Docker_host_ip': docker_url, 'Image': image, 'Hostname': hostname, 'Entrypoint': entrypoint }
+	return intro
+	# return docker['Config']['Entrypoint']
+	# ['Env']['Entrypoint']
+	
+# print(docker_logs('10.134.2.1', '0cceeac31121'))
+print(docker_intro('10.134.2.1', '0cceeac31121'))
 # print(docker_urls())	
 # print(docker_name_up())
