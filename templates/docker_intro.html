@@ -1,32 +1,44 @@
 <!doctype html>
 <html>
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+<link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
 <title>Docker Cluster</title>
- <table class="tbl" width="100%">
+ <table class="table">
   <tr>
-    <th class="titre">Name</th>
+    <th>Name</th>
     <td>{{ docker['Name'] }}</td>
   </tr>
   <tr>
-    <th class="titre">Status</th>
+    <th>Status</th>
     <td>{{ docker['Status'] }}</td>
   </tr>
   <tr>
-    <th class="titre">Id:</th>
+    <th>Id:</th>
     <td>{{ docker['Id'] }}</td>
   </tr>
   <tr>
-    <th class="titre">Image</th>
+    <th>Image</th>
     <td>{{ docker['Image'] }}</td>
   </tr>
   <tr>
-    <th class="titre">Hostname</th>
+    <th>Hostname</th>
     <td>{{ docker['Hostname'] }}</td>
   </tr>
   <tr>
-    <th class="titre">Entrypoint</th>
+    <th>Entrypoint</th>
     <td>{{ docker['Entrypoint'] }}</td>
+  </tr>
+  <tr>
+    <th>IP Address</th>
+    <td>{{ docker['ip'] }}</td>
+  </tr>
+  <tr>
+    <th>Gateway</th>
+    <td>{{ docker['ip'] }}</td>
   </tr>
 </table>
 

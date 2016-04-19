@@ -52,6 +52,6 @@ def docker_intro(docker_url, containet_id):
 	# ['Env']['Entrypoint']
 	
 # print(docker_logs('10.134.2.1', '0cceeac31121'))
-print(docker_intro('10.134.2.1', '0cceeac31121'))
+# print(docker_intro('10.134.2.1', '0cceeac31121'))
 # print(docker_urls())	
 # print(docker_name_up())
