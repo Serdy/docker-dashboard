@@ -1,13 +1,7 @@
-<!doctype html>
-<html>
-<link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<body>
-<title>Docker Cluster</title>
- <table class="table">
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+   <table class="table">
   <tr>
     <th>Name</th>
     <td>{{ docker['Name'] }}</td>
@@ -17,7 +11,7 @@
     <td>{{ docker['Status'] }}</td>
   </tr>
   <tr>
-    <th>Id:</th>
+    <th>Id</th>
     <td>{{ docker['Id'] }}</td>
   </tr>
   <tr>
@@ -38,12 +32,23 @@
   </tr>
   <tr>
     <th>Gateway</th>
-    <td>{{ docker['ip'] }}</td>
+    <td>{{ docker['Docker_host_ip'] }}</td>
   </tr>
+  {% if docker['Mount']  %}
+  <tr>
+    <th>Mount</th>
+    <td>{{ docker['Mount'] }}</td>
+  </tr>
+  {% endif %}
+
 </table>
-
-
-</body>
-</html>
-
-  
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="/docker">Docker</a></li>
+      <li><a href="/docker?docker_id={{ docker['Id'] }}&docker_host={{ docker['Docker_host_ip'] }}&docker_log">Logs</a></li>
+      <li><a href="/docker?docker_id={{ docker['Id'] }}&docker_host={{ docker['Docker_host_ip'] }}&docker_top">Top</a></li>
+    </ul>
+  </div>
+</nav> 
+{% endblock %}  

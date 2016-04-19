@@ -27,7 +27,7 @@ tasks = [
 
 @app.route('/')
 def index():
-	return redirect(url_for('hello'))
+	return redirect(url_for('docker'))
 
 @app.route('/login/	')
 def login():
@@ -70,7 +70,11 @@ def docker(name=None):
     elif 'docker_log' in request.args:
         docker_host = request.args['docker_host']
         docker_id = request.args['docker_id']
-        return render_template('docker_log.html', dockers=dockers.docker_logs(docker_host, docker_id))
+        return render_template('docker_logs.html', dockers=dockers.docker_logs(docker_host, docker_id), docker_id=docker_id, docker_host=docker_host)
+    elif 'docker_top' in request.args:
+        docker_host = request.args['docker_host']
+        docker_id = request.args['docker_id']
+        return render_template('docker_top.html', dockers=dockers.docker_top(docker_host, docker_id), docker_id=docker_id, docker_host=docker_host)
     else: 
         return render_template('docker.html', dockers=dockers.docker_name_up(), test=request.args.get('folder'))
 

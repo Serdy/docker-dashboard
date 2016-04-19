@@ -1,25 +1,18 @@
-<!doctype html>
-<html>
-<link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<body>
-<title>Docker Cluster</title>
-<p><a href="{{ url_for('.login') }}">log in</a></p>
-<form action="/docker">
-    <input type="text" name="search" value="">
-    <input type="submit" value="Search">
-</form>
+{% extends "layout.html" %}
+{% block title %}Docker{% endblock %}
+{% block content %}
 
-{% if name %}
-{% for item in  name %}
-<h1>{{ item }}</h1>
-{% endfor %}
-{% endif %}
-
-
+ <div class="row">
+   <div class="col-md-5  col-md-offset-1">
+      <form action="" class="search-form">
+        <div class="form-group has-feedback">
+           <label for="search" class="sr-only">Search</label>
+           <input type="text" class="form-control" name="search" id="search" placeholder="search">
+           <span class="glyphicon glyphicon-search form-control-feedback"></span>
+         </div>
+       </form>
+     </div>
+   </div>
 <table class="table">
   <tbody>
     <tr class="titre">
@@ -52,10 +45,7 @@
     </tr>
 {% endif %}    
 {% endfor %}
-  </tbody>
-</table>
-
- 
-</body>
-</html>
+ </tbody>
+ </table>
+{% endblock %}
 

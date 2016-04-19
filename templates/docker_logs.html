@@ -1,58 +1,14 @@
-<!doctype html>
-<html>
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
-<body>
-<title>Docker Cluster</title>
-<p><a href="{{ url_for('.login') }}">log in</a></p>
-<form action="/docker">
-    <input type="text" name="search" value="">
-    <input type="submit" value="Search">
-</form>
-
-{% if name %}
-{% for item in  name %}
-<h1>{{ item }}</h1>
-{% endfor %}
-{% endif %}
-
-
-<table class="tbl" width="100%">
-  <tbody>
-    <tr class="titre">
-      <th>Name</th>
-      <th>Status</th>
-      <th>Id</th>
-      <th>IpAddress</th>
-    </tr>
-{% set Docker_host = 'start' %}
-{% for docker in dockers %}
-{% if docker['Docker_host_ip'] != Docker_host %}
-    <tr class="pxname">
-      <td colspan="4">{{ docker['Docker_host_ip'] }}</td>
-    </tr>
-{% set Docker_host = docker['Docker_host_ip'] %}
-{% endif %}
-{% if docker['Status'][:2] == "Up" %}
-    <tr class="active4">
-      <td><a href="/docker?docker_id={{ docker['Id'] }}&docker_host={{ docker['Docker_host_ip'] }}">{{ docker['Name'] }}</a></td>
-      <td>{{ docker['Status'] }}</td>
-      <td>{{ docker['Id'] }}</td> 
-      <td>{{ docker['ip'] }}</td> 
-    </tr>
-{% else %}
-    <tr class="active0">
-      <td><a href="/docker?docker_name={{ docker['Name'] }}">{{ docker['Name'] }}</a></td>
-      <td>{{ docker['Status'] }}</td>
-      <td>{{ docker['Id'] }}</td> 
-      <td>{{ docker['ip'] }}</td> 
-    </tr>
-{% endif %}    
-{% endfor %}
-  </tbody>
-</table>
-
- 
-</body>
-</html>
-
-  
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+<pre>
+   {{ dockers }}
+ </pre>  
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="/docker?docker_id={{ docker_id }}&docker_host={{ docker_host }}&intro">Back</a></li>
+    </ul>
+  </div>
+</nav> 
+{% endblock %}  

@@ -36,6 +36,11 @@ def docker_logs(docker_url, containet_id):
 	logs = cli.logs(containet_id, stdout=True, stderr=True, stream=False)
 	return logs 
 
+def docker_top(docker_url, containet_id):
+	cli = Client(base_url='tcp://' + docker_url + ':2375')
+	top = cli.top(containet_id, 'aux')
+	return top 
+
 def docker_intro(docker_url, containet_id):
 	cli = Client(base_url='tcp://' + docker_url + ':2375')
 	docker = cli.inspect_container(containet_id)
@@ -45,13 +50,9 @@ def docker_intro(docker_url, containet_id):
 	ip = (docker['NetworkSettings']['Networks']['bridge']['IPAddress'])
 	image = (docker['Config']['Image'])
 	hostname = (docker['Config']['Hostname'])
-	entrypoint = (docker['Config']['Entrypoint']) 
-	intro = { 'Id': id, 'Status': status, 'Name': name, 'ip': ip, 'Docker_host_ip': docker_url, 'Image': image, 'Hostname': hostname, 'Entrypoint': entrypoint }
+	entrypoint = (docker['Config']['Entrypoint'])
+	mount_point = (docker['HostConfig']['Binds']) 
+	intro = { 'Id': id, 'Status': status, 'Name': name, 'ip': ip, 'Docker_host_ip': docker_url, 'Image': image, 'Hostname': hostname, 'Entrypoint': entrypoint, 'Mount': mount_point }
 	return intro
-	# return docker['Config']['Entrypoint']
-	# ['Env']['Entrypoint']
 	
-# print(docker_logs('10.134.2.1', '0cceeac31121'))
-# print(docker_intro('10.134.2.1', '0cceeac31121'))
-# print(docker_urls())	
-# print(docker_name_up())
+	
