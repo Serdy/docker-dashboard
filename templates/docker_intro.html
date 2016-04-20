@@ -40,7 +40,10 @@
     <td>{{ docker['Mount'] }}</td>
   </tr>
   {% endif %}
-
+  <tr>
+    <th>Connect command</th>
+    <td><pre>docker -H tcp://{{ docker['Docker_host_ip'] }}:2375 exec -it {{ docker['Id'] }} bash</pre></td>
+  </tr>
 </table>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
