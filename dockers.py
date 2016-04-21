@@ -72,4 +72,3 @@ def docker_intro(docker_url, containet_id):
 	
 	
 
-print(docker_logs('10.134.2.1', '703945bc1ae5'))
