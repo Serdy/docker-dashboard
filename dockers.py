@@ -1,4 +1,11 @@
 from docker import Client
+import signal
+
+
+def signal_handler(signum, frame):
+    raise Exception("Timed out!")
+
+
 
 def docker_urls():
 	with open('cluster') as f:
@@ -31,9 +38,17 @@ def search_docker(docker_name_up, search):
 		docker_name.append(resuts_search)
 	return docker_name
 
+
 def docker_logs(docker_url, containet_id):
 	cli = Client(base_url='tcp://' + docker_url + ':2375')
-	logs = cli.logs(containet_id, stdout=True, stderr=True, stream=False)
+	signal.signal(signal.SIGALRM, signal_handler)
+	signal.alarm(10)   # Ten seconds
+	try:
+	    logs = cli.logs(containet_id, stdout=True, stderr=True, stream=False)
+	except Exception, msg:
+		logs = "Too large file"
+	
+	
 	return logs 
 
 def docker_top(docker_url, containet_id):
@@ -56,3 +71,5 @@ def docker_intro(docker_url, containet_id):
 	return intro
 	
 	
+
+print(docker_logs('10.134.2.1', '703945bc1ae5'))
