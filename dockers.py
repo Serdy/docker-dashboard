@@ -1,5 +1,7 @@
 from docker import Client
 import signal
+import requests
+
 
 def docker_urls():
 	with open('cluster') as f:
@@ -15,14 +17,17 @@ def docker_urls():
 def docker_name_up(*args):
 	docker_name = []
 	for docker_url in docker_urls():
-		cli = Client(base_url='tcp://' + docker_url + ':2375')
-		for x in cli.containers(all=True):
-			id = (x['Id'][:12])
-			status =  (x['Status'])
-			name = (x['Names'][0][1:])
-			ip = (x['NetworkSettings']['Networks']['bridge']['IPAddress'])
-			dockers = { 'Id': id, 'Status': status, 'Name': name, 'ip': ip, 'Docker_host_ip': docker_url }
-			docker_name.append(dockers)
+		try:
+		    cli = Client(base_url='tcp://' + docker_url + ':2375', timeout=5)
+		    for x in cli.containers(all=True):
+				id = (x['Id'][:12])
+				status =  (x['Status'])
+				name = (x['Names'][0][1:])
+				ip = (x['NetworkSettings']['Networks']['bridge']['IPAddress'])
+				dockers = { 'Id': id, 'Status': status, 'Name': name, 'ip': ip, 'Docker_host_ip': docker_url }
+				docker_name.append(dockers)
+		except requests.ConnectionError:
+		    pass
 	return docker_name
 
 
@@ -59,3 +64,4 @@ def docker_intro(docker_url, containet_id):
 	
 	
 
+# print(docker_name_up())
