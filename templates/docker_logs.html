@@ -2,7 +2,7 @@
 {% block title %}Index{% endblock %}
 {% block content %}
 <pre>
-   {{ dockers }}
+   {{ dockers.decode('utf-8') }}
  </pre>  
  <nav class="navbar navbar-default">
   <div class="container-fluid">

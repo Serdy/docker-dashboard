@@ -40,8 +40,8 @@ def search_docker(docker_name_up, search):
 
 def docker_logs(docker_url, containet_id):
 	cli = Client(base_url='tcp://' + docker_url + ':2375')
-	logs = cli.logs(containet_id, stdout=True, stderr=True, stream=False)
-	return logs 
+	logs = cli.logs(containet_id, stdout=True, stderr=True, stream=False, tail=100, timestamps=True)
+	return logs
 
 def docker_top(docker_url, containet_id):
 	cli = Client(base_url='tcp://' + docker_url + ':2375')
@@ -62,6 +62,3 @@ def docker_intro(docker_url, containet_id):
 	intro = { 'Id': id, 'Status': status, 'Name': name, 'ip': ip, 'Docker_host_ip': docker_url, 'Image': image, 'Hostname': hostname, 'Entrypoint': entrypoint, 'Mount': mount_point }
 	return intro
 	
-	
-
-# print(docker_name_up())
