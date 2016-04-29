@@ -4,6 +4,10 @@ from flask import render_template, redirect, url_for, request
 import os
 from werkzeug import secure_filename
 import dockers
+import sql
+from flask import g
+import sqlite3
+
 
 app = Flask(__name__)
 
@@ -34,8 +38,33 @@ def docker(name=None):
         return render_template('docker.html', dockers=dockers.docker_name_up(), test=request.args.get('folder'))
 
 
+
+@app.route('/setting', methods=["POST", "GET"])
+def emails():
+    if request.method == 'POST':
+        host = request.form['host']
+        return host
+    else:
+        return render_template('setting.html', email_addresses=sql.NAME())
+
+
+@app.before_request
+def before_request():
+    try:
+        g.db = sqlite3.connect("flask.db")        
+    except Exception as e:
+        pass
+    
+    # g.db = sqlite3.connect("flask.db")
+
+@app.teardown_request
+def teardown_request(exception):
+    if hasattr(g, 'db'):
+        g.db.close()
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
 
 
 
