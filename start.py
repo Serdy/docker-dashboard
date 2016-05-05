@@ -1,8 +1,8 @@
 #!/bin/python
-from flask import Flask, jsonify
+from flask import Flask
 from flask import render_template, redirect, url_for, request
-import os
-from werkzeug import secure_filename
+# import os
+# from werkzeug import secure_filename
 import dockers
 import sql
 from flask import g
@@ -42,21 +42,29 @@ def docker(name=None):
 @app.route('/setting', methods=["POST", "GET"])
 def emails():
     if request.method == 'POST':
-        host = request.form['host']
-        return host
+        for get_request in request.form:
+            if 'add_host' == get_request :
+                host_ip = request.form['host_ip']
+                domain_name = request.form['domain_name']
+                datacenter = request.form['datacenter']
+                sql.add_host(host_ip, domain_name, datacenter)
+                return render_template('setting.html', hosts=sql.hosts())
+            elif 'del_host'  == get_request:
+                host_id = request.form['host_id']
+                sql.del_host(host_id)
+                return render_template('setting.html', hosts=sql.hosts())
     else:
-        return render_template('setting.html', email_addresses=sql.NAME())
+        return render_template('setting.html', hosts=sql.hosts())
 
 
 @app.before_request
 def before_request():
     try:
         g.db = sqlite3.connect("flask.db")        
-    except Exception as e:
+    except Exception:
         pass
     
-    # g.db = sqlite3.connect("flask.db")
-
+   
 @app.teardown_request
 def teardown_request(exception):
     if hasattr(g, 'db'):

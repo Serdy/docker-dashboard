@@ -1,18 +1,16 @@
 from docker import Client
-import signal
+# import signal
 import requests
+from flask import g
 
 
 def docker_urls():
-	with open('cluster') as f:
-		docker_urls = []
-		for x in f.readlines():
-			if x[-1:] == "\n":
-				docker_urls.append(x[:-1])
-			else:
-				docker_urls.append(x)
-		return docker_urls
-			
+	hosts_db = g.db.execute("SELECT host_ip FROM hosts;").fetchall()
+	hosts = []
+	for x in hosts_db:
+		hosts.append(x[0])  
+	return hosts
+
 
 def docker_name_up(*args):
 	docker_name = []
